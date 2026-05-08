@@ -1,0 +1,57 @@
+@model Hotel.Models.Reservation
+
+@{
+    ViewData["Title"] = "Reservation Details";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>@ViewData["Title"]</h1>
+            <hr />
+
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Guest</dt>
+                        <dd class="col-sm-9">@Model.Guest?.FullName</dd>
+
+                        <dt class="col-sm-3">Guest Email</dt>
+                        <dd class="col-sm-9">@Model.Guest?.Email</dd>
+
+                        <dt class="col-sm-3">Guest Phone</dt>
+                        <dd class="col-sm-9">@Model.Guest?.Phone</dd>
+
+                        <dt class="col-sm-3">Room</dt>
+                        <dd class="col-sm-9">@Model.Room?.RoomNumber</dd>
+
+                        <dt class="col-sm-3">Room Type</dt>
+                        <dd class="col-sm-9">@Model.Room?.Type</dd>
+
+                        <dt class="col-sm-3">Price per Night</dt>
+                        <dd class="col-sm-9">$@Model.Room?.PricePerNight.ToString("0.00")</dd>
+
+                        <dt class="col-sm-3">Check-in</dt>
+                        <dd class="col-sm-9">@Model.CheckInDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                        <dt class="col-sm-3">Check-out</dt>
+                        <dd class="col-sm-9">@Model.CheckOutDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                        <dt class="col-sm-3">Duration</dt>
+                        <dd class="col-sm-9">@((Model.CheckOutDate - Model.CheckInDate).Days) nights</dd>
+
+                        <dt class="col-sm-3">Total Price</dt>
+                        <dd class="col-sm-9"><strong>$@Model.TotalPrice.ToString("0.00")</strong></dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+

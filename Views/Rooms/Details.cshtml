@@ -1,0 +1,100 @@
+@model Hotel.Models.Room
+
+@{
+    ViewData["Title"] = "Room Details";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>@ViewData["Title"]</h1>
+            <hr />
+
+            <div class="card">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-3">Room Number</dt>
+                        <dd class="col-sm-9">@Model.RoomNumber</dd>
+
+                        <dt class="col-sm-3">Type</dt>
+                        <dd class="col-sm-9">@Model.Type</dd>
+
+                        <dt class="col-sm-3">Price per Night</dt>
+                        <dd class="col-sm-9">$@Model.PricePerNight.ToString("0.00")</dd>
+
+                        <dt class="col-sm-3">Capacity</dt>
+                        <dd class="col-sm-9">@Model.Capacity @(Model.Capacity == 1 ? "guest" : "guests")</dd>
+
+                        <dt class="col-sm-3">Available</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.IsAvailable)
+                            {
+                                <span class="badge bg-success">Available</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Not Available</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-3">Amenities</dt>
+                        <dd class="col-sm-9">
+                            @if (Model.Amenities.Count > 0)
+                            {
+                                @foreach (var amenity in Model.Amenities)
+                                {
+                                    <div class="badge bg-info">@amenity.Name</div>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-muted">No amenities</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4>Reservations</h4>
+                @if (Model.Reservations.Count > 0)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Guest</th>
+                                    <th>Check-in</th>
+                                    <th>Check-out</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var reservation in Model.Reservations)
+                                {
+                                    <tr>
+                                        <td>@reservation.Guest?.FullName</td>
+                                        <td>@reservation.CheckInDate.ToString("yyyy-MM-dd")</td>
+                                        <td>@reservation.CheckOutDate.ToString("yyyy-MM-dd")</td>
+                                        <td>$@reservation.TotalPrice.ToString("0.00")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted">No reservations yet.</p>
+                }
+            </div>
+
+            <div class="mt-4">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
