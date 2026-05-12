@@ -29,3 +29,25 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+/* Rounded Tables */
+.table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.table thead th:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+.table thead th:last-child {
+  border-top-right-radius: 0.5rem;
+}
+
+.table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 0.5rem;
+}
+
+.table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 0.5rem;
+}
